@@ -69,5 +69,5 @@ setInterval(function() {
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 	drawPlayer();
 	log("Player position is", player.pos);
-}, 1000);
+}, 100);
 
