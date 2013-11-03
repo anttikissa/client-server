@@ -1,4 +1,19 @@
 <script src=underscore.js></script>
+
+<script>
+	modules = {};
+	var require = function(module) {
+		return modules[module];
+	}
+	var module = {};
+</script>
+<script src=player.js></script>
+<script>modules['./player'] = module.exports;</script>
 <script src=client.js></script>
+<style>
+	canvas {
+		border: 1px solid #888;
+	}
+</style>
 <canvas width=400 height=400>
 </canvas>
