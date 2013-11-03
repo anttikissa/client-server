@@ -18,7 +18,7 @@ server.on('connection', function (socket) {
 	});
 });
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/client'));
 
 httpServer.listen(3000);
 
