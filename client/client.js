@@ -54,11 +54,11 @@ window.onload = function() {
 
 function drawPlayer() {
 	var playerSize = 0.5;
-	var posX = player.pos[0] * unitSizePx + canvasWidth / 2;
-	var posY = player.pos[1] * unitSizePx + canvasHeight / 2;
+	var posXPx = (player.pos[0] - .5 * playerSize) * unitSizePx + canvasWidth / 2;
+	var posYPx = (player.pos[1] - .5 * playerSize) * unitSizePx + canvasHeight / 2;
 	var widthPx = unitSizePx * playerSize;
 	var heightPx = unitSizePx * playerSize;
-	ctx.fillRect(posX, posY, widthPx, heightPx);
+	ctx.fillRect(posXPx, posYPx, widthPx, heightPx);
 }
 
 //
