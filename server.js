@@ -20,7 +20,8 @@ server.on('connection', function (socket) {
 
 app.use(express.static(__dirname + '/client'));
 
-httpServer.listen(3000);
+var port = process.env.PORT || 3000;
+httpServer.listen(port);
 
-console.log('Listening to http://localhost:3000');
+console.log('Listening to http://localhost:' + port);
 
