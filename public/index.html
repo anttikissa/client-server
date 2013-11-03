@@ -1,12 +1,18 @@
 <script src=underscore.js></script>
 
 <script>
-	modules = {};
+	modules = {
+		util: {
+			inspect: function(o) { return JSON.stringify(o); }
+		}
+	};
 	var require = function(module) {
 		return modules[module];
 	}
 	var module = {};
 </script>
+<script src=basic-log.js></script>
+<script>modules['basic-log'] = module.exports;</script>
 <script src=player.js></script>
 <script>modules['./player'] = module.exports;</script>
 <script src=client.js></script>

@@ -1,10 +1,11 @@
+var log = require('basic-log');
 var player = require('./player');
 
-console.log(_.range(1, 10));
+log(_.range(1, 10));
 
 setInterval(function() {
 	player.update();
-	console.log("Player position is ", player.pos);
-}, 500);
+	log("Player position is", player.pos);
+}, 1000);
 alert('this is client!');
 
