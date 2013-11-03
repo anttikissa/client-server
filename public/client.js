@@ -7,5 +7,4 @@ setInterval(function() {
 	player.update();
 	log("Player position is", player.pos);
 }, 1000);
-alert('this is client!');
 

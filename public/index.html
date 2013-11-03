@@ -6,15 +6,19 @@
 			inspect: function(o) { return JSON.stringify(o); }
 		}
 	};
-	var require = function(module) {
+	function require(module) {
 		return modules[module];
 	}
-	var module = {};
+	function exports(name) {
+		modules[name] = module.exports;
+		module.exports = {};
+	}
+	var module = { exports: {} };
 </script>
 <script src=basic-log.js></script>
-<script>modules['basic-log'] = module.exports;</script>
+<script>exports('basic-log');</script>
 <script src=player.js></script>
-<script>modules['./player'] = module.exports;</script>
+<script>exports('./player');</script>
 <script src=client.js></script>
 <style>
 	canvas {
