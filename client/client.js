@@ -52,22 +52,25 @@ window.onload = function() {
 	ctx = canvas.getContext('2d');
 }
 
-function drawPlayer() {
-	var playerSize = 0.5;
-	var posXPx = (player.pos[0] - .5 * playerSize) * unitSizePx + canvasWidth / 2;
-	var posYPx = (player.pos[1] - .5 * playerSize) * unitSizePx + canvasHeight / 2;
-	var widthPx = unitSizePx * playerSize;
-	var heightPx = unitSizePx * playerSize;
-	ctx.fillRect(posXPx, posYPx, widthPx, heightPx);
+// convert coordinates to pixels
+function coord(relative) {
+	// assume width == height
+	return .5 * canvasWidth + unitSizePx * relative;
 }
 
-//
+// convert coordinates to pixels
+function scale(relative) {
+	return unitSizePx * relative;
+}
+
 // other stuff
 //
 setInterval(function() {
 	player.update();
+
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-	drawPlayer();
+	player.draw();
+
 	log("Player position is", player.pos);
 }, 100);
 
