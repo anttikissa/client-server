@@ -37,6 +37,14 @@ socket.on('open', function() {
 	connected = true;
 });
 
+function send(msg, data) {
+	var data = JSON.stringify({
+		msg: msg,
+		data: data
+	});
+	socket.send(data);
+}
+
 var canvas;
 var ctx;
 var canvasWidth;
@@ -71,6 +79,8 @@ setInterval(function() {
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 	player.draw();
 
+	send('player', player);
+
 	log("Player position is", player.pos);
-}, 100);
+}, 1000);
 

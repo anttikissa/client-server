@@ -1,14 +1,19 @@
 var log = require('basic-log');
 
+Array.prototype.random = function() {
+	return this[Math.floor(Math.random() * this.length)];
+}
+
+var firsts = ['Bob', 'Joe', 'Jill', 'Jack', 'Mary', 'Alice', 'Cecilia', 'William'];
+var lasts = ['Smith', 'Wellington', 'Gorgoroth', 'West', 'Spears', 'Johnson', 'Shaw', 'Stein'];
+
 player = {
-	name: 'Bob',
+	name: firsts.random() + ' ' + lasts.random(),
 	pos: [0, 0],
 	score: 0,
 	update: function() {
-//		log.d("player pos", this.pos, "random walking");
 		this.pos[0] += .2 * (Math.random() - .5);
 		this.pos[1] += .2 * (Math.random() - .5);
-//		log.d("player pos", this.pos, "after random walk");
 	},
 	draw: function() {
 		var playerSize = 0.5;
