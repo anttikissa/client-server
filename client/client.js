@@ -47,6 +47,7 @@ socket.on('open', function() {
 });
 
 function send(msg, data) {
+	var data = _.omit(data, 'age');
 	var str = JSON.stringify({
 		msg: msg,
 		data: data
@@ -99,16 +100,19 @@ setInterval(function() {
 	ctx.globalAlpha = 0.3;
 	ctx.globalCompositeOperation = 'darker';
 
-	log("Drawing playas", players);
+	log("Drawing players", players);
 	for (var name in players) {
 		var p = players[name];
 		player.draw.apply(p);
-//		p.age = player.age || 0;
-//		p.age += 1
-		log("agege", p.age);
+		p.age = player.age || 0;
+		p.age += 0.2
+		if (p.age > 5) {
+			log('delete player', p);
+			delete players[name];
+		}
 	}
 
 	players = {};
 //	log("Player position is", player.pos);
-}, 1000);
+}, 200);
 
