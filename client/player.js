@@ -31,6 +31,7 @@ Color.random();
 player = {
 	name: firsts.random() + ' ' + lasts.random(),
 	pos: [0, 0],
+	color: Color.random(),
 	score: 0,
 	update: function() {
 		this.pos[0] += .2 * (Math.random() - .5);
@@ -42,6 +43,7 @@ player = {
 		var posYPx = coord(this.pos[1] - .5 * playerSize);
 		var widthPx = scale(playerSize);
 		var heightPx = scale(playerSize);
+		ctx.fillStyle = this.color;
 		ctx.fillRect(posXPx, posYPx, widthPx, heightPx);
 	}
 };

@@ -21,10 +21,19 @@ setInterval(function() {
 	}
 }, 1000);
 
-socket.on('message', function(data) {
-	log('Got message:', data);
-	if (data == 'hi') {
-		socket.send('newuser');
+socket.on('message', function(str) {
+	try {
+		var obj = JSON.parse(str);
+		var msg = obj.msg;
+		var data = obj.data;
+		if (msg && data) {
+//			log.i('<-', JSON.stringify(msg));
+			got(msg, data);
+		} else {
+			log.i('something strange', msg, data);
+		}
+	} catch (e) {
+		log.w('cannot parse', e, str);
 	}
 });
 
@@ -38,11 +47,18 @@ socket.on('open', function() {
 });
 
 function send(msg, data) {
-	var data = JSON.stringify({
+	var str = JSON.stringify({
 		msg: msg,
 		data: data
 	});
-	socket.send(data);
+	socket.send(str);
+}
+
+var players = {};
+
+function got(msg, data) {
+	log.i("got", msg, data);
+	players[data.name] = data;
 }
 
 var canvas;
@@ -75,12 +91,24 @@ function scale(relative) {
 //
 setInterval(function() {
 	player.update();
+	send('player', player);
+	players[player.name] = player;
 
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-	player.draw();
 
-	send('player', player);
+	ctx.globalAlpha = 0.5;
+	ctx.globalCompositeOperation = 'darker';
 
-	log("Player position is", player.pos);
+	log("Drawing playas", players);
+	for (var name in players) {
+		var p = players[name];
+		player.draw.apply(p);
+		p.age = player.age || 0;
+		p.age += 1
+		log("agege", p.age);
+	}
+
+	players = {};
+//	log("Player position is", player.pos);
 }, 1000);
 
