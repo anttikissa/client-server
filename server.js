@@ -17,7 +17,6 @@ server.on('connection', function(socket) {
 	sockets.push(socket);
 
 	log('New connection. Now', ++connections, 'connections.');
-	log(socket);
 	socket.on('message', function(str) {
 		try {
 			var obj = JSON.parse(str);
