@@ -58,7 +58,7 @@ function send(socket, msg, data) {
 var players = {}
 
 function got(msg, data) {
-	if (msg == 'player') {
+	if (msg === 'player') {
 		players[data.name] = data;
 	}
 }
