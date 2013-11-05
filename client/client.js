@@ -96,15 +96,15 @@ setInterval(function() {
 
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-	ctx.globalAlpha = 0.5;
+	ctx.globalAlpha = 0.3;
 	ctx.globalCompositeOperation = 'darker';
 
 	log("Drawing playas", players);
 	for (var name in players) {
 		var p = players[name];
 		player.draw.apply(p);
-		p.age = player.age || 0;
-		p.age += 1
+//		p.age = player.age || 0;
+//		p.age += 1
 		log("agege", p.age);
 	}
 

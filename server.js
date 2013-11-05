@@ -16,14 +16,15 @@ var sockets = [];
 server.on('connection', function(socket) {
 	sockets.push(socket);
 
-	console.log('New connection. Now', ++connections, 'connections.');
+	log('New connection. Now', ++connections, 'connections.');
+	log(socket);
 	socket.on('message', function(str) {
 		try {
 			var obj = JSON.parse(str);
 			var msg = obj.msg;
 			var data = obj.data;
 			if (msg && data) {
-				log.i('<-', JSON.stringify(msg));
+				log.i('got', JSON.stringify(msg));
 				got(msg, data);
 			} else {
 				log.i('something strange', msg, data);
@@ -34,24 +35,52 @@ server.on('connection', function(socket) {
 	});
 	socket.on('close', function() {
 		console.log('Connection closed. Now', --connections, 'connections.');
-		sockets = _.without(sockets, [socket]);
+		sockets.remove(socket);
 	});
 });
+
+Array.prototype.remove = function(item) {
+	var idx = this.indexOf(item);
+	if (idx !== -1)
+		this.splice(idx, 1);
+	return this;
+}
 
 function send(socket, msg, data) {
 	var str = JSON.stringify({
 		msg: msg,
 		data: data
 	});
-	log("sending", str);
+//	log("sending", str);
 	socket.send(str);
 }
 
+var players = {}
+
 function got(msg, data) {
-	for (var i = 0; i < sockets.length; i++) {
-		send(sockets[i], msg, data)
+	if (msg == 'player') {
+		players[data.name] = data;
 	}
 }
+
+function hb() {
+	log.d('broadcast');
+	for (var name in players) {
+		var data = players[name];
+		data.age = data.age || 0;
+		data.age++;
+		for (var i = 0; i < sockets.length; i++) {
+			send(sockets[i], 'player', data)
+		}
+
+		if (data.age > 3) {
+			log('delete player', players[name]);
+			delete players[name];
+		}
+	}
+}
+
+setInterval(hb, 1000);
 
 app.use(express.static(__dirname + '/client'));
 
