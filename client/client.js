@@ -114,5 +114,5 @@ setInterval(function() {
 
 	players = {};
 //	log("Player position is", player.pos);
-}, 200);
+}, 2000);
 

@@ -15,6 +15,14 @@ var sockets = [];
 
 server.on('connection', function(socket) {
 	sockets.push(socket);
+	var id = socket.id;
+//	log(socket);
+	//	log(socket.transport.request);
+//	log(socket.transport.request.headers);
+	var headers = socket.transport.request.headers;
+	var userAgent = headers['user-agent'];
+	log(userAgent);
+//	log(socket.transport.request.client);
 
 	log('New connection. Now', ++connections, 'connections.');
 	socket.on('message', function(str) {
